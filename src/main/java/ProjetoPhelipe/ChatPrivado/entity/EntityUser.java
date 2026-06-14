@@ -34,6 +34,9 @@ public class EntityUser {
     @Setter
     private String perfilImagem = "https://res.cloudinary.com/dcvnvdjlb/image/upload/v1779067143/573323465_1219825463302212_7278921664109726296_n_irmghp.jpg";
 
+    @Setter
+    private Boolean ativo = true;
+
     @CreationTimestamp
     private LocalDateTime localDateTime;
 
