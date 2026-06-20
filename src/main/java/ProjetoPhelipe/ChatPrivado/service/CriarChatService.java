@@ -6,13 +6,13 @@ import ProjetoPhelipe.ChatPrivado.entity.EntityChat;
 import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryChat;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
+import ProjetoPhelipe.ChatPrivado.security.AuthUser;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -21,23 +21,17 @@ public class CriarChatService {
 
     private final RepositoryUser repositoryUser;
     private final RepositoryChat repositoryChat;
+    private final AuthUser authUser;
 
-    public CriarChatService(RepositoryUser repositoryUser,RepositoryChat repositoryChat) {
+    public CriarChatService(RepositoryUser repositoryUser,RepositoryChat repositoryChat,AuthUser authUser) {
         this.repositoryUser = repositoryUser;
         this.repositoryChat = repositoryChat;
+        this.authUser = authUser;
     }
 
     @Transactional
-    public ResponseEntity<CriarChatResponse> criarChat(@RequestBody CriarChatRequest request) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.badRequest().body(new CriarChatResponse(false,null));
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        Optional<EntityUser> existUserAut = repositoryUser.findByEmail(userDetails.getUsername());
+    public ResponseEntity<CriarChatResponse> criarChat(CriarChatRequest request) {
+        Optional<EntityUser> existUserAut = authUser.getUsuarioAutenticado();
 
         if(existUserAut.isEmpty()) {
             return ResponseEntity.badRequest().body(new CriarChatResponse(false,null));

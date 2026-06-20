@@ -4,6 +4,7 @@ import ProjetoPhelipe.ChatPrivado.dto.CriarMensagemResponse;
 import ProjetoPhelipe.ChatPrivado.dto.UserSummary;
 import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
+import ProjetoPhelipe.ChatPrivado.security.AuthUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,22 +20,16 @@ import java.util.Optional;
 public class ListaTodosUsuariosService {
 
     private final RepositoryUser repositoryUser;
+    private final AuthUser authUser;
 
-    public ListaTodosUsuariosService(RepositoryUser repositoryUser) {
+    public ListaTodosUsuariosService(RepositoryUser repositoryUser,AuthUser authUser) {
         this.repositoryUser = repositoryUser;
+        this.authUser = authUser;
     }
 
     public List<UserSummary> listarTodosUsuarios() {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication == null || !authentication.isAuthenticated()) {
-            return new ArrayList<>();
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        Optional<EntityUser> userR = repositoryUser.findByEmail(userDetails.getUsername());
+        Optional<EntityUser> userR = authUser.getUsuarioAutenticado();
 
         if(userR.isEmpty()) {
             return new ArrayList<>();

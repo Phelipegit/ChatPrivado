@@ -3,6 +3,7 @@ package ProjetoPhelipe.ChatPrivado.service;
 import ProjetoPhelipe.ChatPrivado.dto.DDPUser;
 import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
+import ProjetoPhelipe.ChatPrivado.security.AuthUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,21 +16,16 @@ import java.util.Optional;
 public class DevolverDadosPessoaisUsuario {
 
     private final RepositoryUser repositoryUser;
+    private final AuthUser authUser;
 
-    public DevolverDadosPessoaisUsuario(RepositoryUser repositoryUser) {
+    public DevolverDadosPessoaisUsuario(RepositoryUser repositoryUser,AuthUser authUser) {
         this.repositoryUser = repositoryUser;
+        this.authUser = authUser;
     }
 
     public ResponseEntity<DDPUser> devolverDadosPessoais() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.badRequest().body(new DDPUser(null, null, false));
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        Optional<EntityUser> userEntity = repositoryUser.findByEmail(userDetails.getUsername());
+        Optional<EntityUser> userEntity = authUser.getUsuarioAutenticado();
 
         if(userEntity.isEmpty()) {
             return ResponseEntity.badRequest().body(new DDPUser(null,null,false));
