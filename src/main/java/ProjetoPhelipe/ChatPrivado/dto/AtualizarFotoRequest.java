@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class AtualizarFotoRequest {
 
-    String iBase64;
+    String base64;
 
-    public AtualizarFotoRequest(String iBase64) {
-        this.iBase64 = iBase64;
+    public AtualizarFotoRequest(String base64) {
+        this.base64 = base64;
     }
 }

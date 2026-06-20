@@ -3,14 +3,15 @@ package ProjetoPhelipe.ChatPrivado.service;
 import ProjetoPhelipe.ChatPrivado.dto.DDPUser;
 import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class DevolverDadosPessoaisUsuario {
 
     private final RepositoryUser repositoryUser;

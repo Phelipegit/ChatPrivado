@@ -15,11 +15,11 @@ public class EntityChat {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToMany(mappedBy ="entityChat",cascade = CascadeType.ALL)
-    private List<EntityMessage> entityMessageList = new ArrayList<>();
+    @ManyToMany(mappedBy = "chats")
+    private List<EntityUser> usuarios = new ArrayList<>();
 
-    @ManyToOne()
-    private EntityUser user_id;
+    @OneToMany(mappedBy ="chat",cascade = CascadeType.ALL)
+    private List<EntityMessage> messageList = new ArrayList<>();
 
     public EntityChat() {
 

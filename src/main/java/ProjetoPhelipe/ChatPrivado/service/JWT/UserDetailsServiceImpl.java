@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl  implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repositoryUser.findByEmail(username)
                 .map(u -> User.builder()
-                        .username(u.getUsername())
+                        .username(u.getEmail())
                         .password(u.getPassword())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));

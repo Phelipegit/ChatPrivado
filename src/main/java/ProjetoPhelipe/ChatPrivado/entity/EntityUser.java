@@ -40,9 +40,13 @@ public class EntityUser {
     @CreationTimestamp
     private LocalDateTime localDateTime;
 
-    @OneToMany(mappedBy = "user_id",cascade = CascadeType.ALL)
-    private List<EntityChat> entityChatList = new ArrayList<>();
-
+    @ManyToMany()
+    @JoinTable(
+            name = "user_chat",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id")
+    )
+    private List<EntityChat> chats = new ArrayList<>();
 
     public EntityUser(String email, String username, String password) {
         this.email = email;
@@ -52,5 +56,13 @@ public class EntityUser {
 
     public EntityUser() {
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof EntityUser entity) {
+            return this.id.equals(entity.getId());
+        }
+        return super.equals(obj);
     }
 }

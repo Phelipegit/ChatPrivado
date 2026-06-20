@@ -14,6 +14,6 @@ public class UserRegisterRequest {
     public UserRegisterRequest(String email, String username, String password) {
         this.email = email;
         this.username = username;
-        this.username = username;
+        this.password = password;
     }
 }

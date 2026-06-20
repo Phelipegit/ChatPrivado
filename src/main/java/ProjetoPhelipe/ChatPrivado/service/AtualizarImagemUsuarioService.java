@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Service
-public class AtualizarImagemUsuario {
+public class AtualizarImagemUsuarioService {
 
     private final ProcessarBase64ToPng processarBase64ToPng;
     private final RepositoryUser repositoryUser;
 
-    public AtualizarImagemUsuario(ProcessarBase64ToPng processarBase64ToPng, RepositoryUser repositoryUser) {
+    public AtualizarImagemUsuarioService(ProcessarBase64ToPng processarBase64ToPng, RepositoryUser repositoryUser) {
         this.processarBase64ToPng = processarBase64ToPng;
         this.repositoryUser = repositoryUser;
     }
@@ -42,7 +42,7 @@ public class AtualizarImagemUsuario {
 
         EntityUser entityUser = giveEntity.get();
 
-        String urlNew = processarBase64ToPng.enviarReq(request.getIBase64());
+        String urlNew = processarBase64ToPng.enviarReq(request.getBase64());
 
         entityUser.setPerfilImagem(urlNew);
 

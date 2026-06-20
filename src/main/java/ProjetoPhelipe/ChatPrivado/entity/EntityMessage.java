@@ -15,16 +15,28 @@ public class EntityMessage {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private EntityChat entityChat;
-
     @Column(nullable = false)
     private String message;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public EntityMessage() {}
+    @ManyToOne()
+    @JoinColumn(name = "id_chat")
+    private EntityChat chat;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_sender")
+    private EntityUser sender;
+
+    public EntityMessage(String message,EntityChat chat,EntityUser entityUser) {
+        this.message = message;
+        this.chat = chat;
+        this.sender = entityUser;
+    }
+
+    public EntityMessage() {
+
+    }
 
 }

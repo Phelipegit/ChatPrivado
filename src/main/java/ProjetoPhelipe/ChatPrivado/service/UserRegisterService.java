@@ -4,6 +4,7 @@ import ProjetoPhelipe.ChatPrivado.dto.UserRegisterRequest;
 import ProjetoPhelipe.ChatPrivado.dto.UserRegisterResponse;
 import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,13 @@ public class UserRegisterService {
         this.repositoryUser = repositoryUser;
         this.passwordEncoder = passwordEncoder;
     }
+
+    @Transactional
     public ResponseEntity<UserRegisterResponse> userRegister(UserRegisterRequest request) {
         if(request.getUsername().length() < 5) {
             return ResponseEntity.badRequest().body(new UserRegisterResponse(false, "Username precisa ter no mínimo 5 dígitos"));
         }
+
 
         if(request.getPassword().length() < 8) {
             return ResponseEntity.badRequest().body(new UserRegisterResponse(false, "Senha precisa ter no mínimo 8 dígitos"));

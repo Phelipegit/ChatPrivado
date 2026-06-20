@@ -6,6 +6,7 @@ import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
 import ProjetoPhelipe.ChatPrivado.security.ArgonConfig;
 import ProjetoPhelipe.ChatPrivado.service.JWT.JwtService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class UserLoginService {
     }
 
 
+    @Transactional
     public ResponseEntity<UserLoginResponse> userLogin(UserLoginRequest request) {
         Optional<EntityUser> exist = repositoryUser.findByEmail(request.getEmail());
 
