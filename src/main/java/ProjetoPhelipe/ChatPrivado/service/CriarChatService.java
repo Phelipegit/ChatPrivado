@@ -9,9 +9,6 @@ import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
 import ProjetoPhelipe.ChatPrivado.security.AuthUser;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -49,6 +46,14 @@ public class CriarChatService {
 
         if(userRequest.getId().equals(userAut.getId())) {
             return ResponseEntity.badRequest().body(new CriarChatResponse(false,null));
+        }
+
+        Optional<EntityChat> OptionalEntityChatExist = repositoryChat.findAll().stream().filter(element -> element.getUsuarios().contains(userAut) && element.getUsuarios().contains(userRequest)).findFirst();
+
+        if(OptionalEntityChatExist.isPresent()) {
+            EntityChat entityChatExist = OptionalEntityChatExist.get();
+
+            return ResponseEntity.ok(new CriarChatResponse(true,entityChatExist.getId()));
         }
 
         EntityChat entityChat = new EntityChat();

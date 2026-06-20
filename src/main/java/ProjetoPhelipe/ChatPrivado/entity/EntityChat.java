@@ -24,4 +24,17 @@ public class EntityChat {
     public EntityChat() {
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof EntityChat chat) {
+            return this.id.equals(chat.getId());
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
 }

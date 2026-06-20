@@ -65,4 +65,9 @@ public class EntityUser {
         }
         return super.equals(obj);
     }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
 }

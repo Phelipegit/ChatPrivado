@@ -4,6 +4,7 @@ import ProjetoPhelipe.ChatPrivado.entity.EntityMessage;
 import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryChat;
 import ProjetoPhelipe.ChatPrivado.security.AuthUser;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ public class DevolverMensagensChatService {
         this.authUser = authUser;
     }
 
-    public List<EntityMessage> devolverMensagensChat(UUID id_chat) {
+    public ResponseEntity<List<EntityMessage>> devolverMensagensChat(UUID id_chat) {
 
         Optional<EntityUser> entity = authUser.getUsuarioAutenticado();
 
         if(entity.isEmpty()) {
-            return new ArrayList<>();
+            return ResponseEntity.badRequest().body(new ArrayList<>());
         }
 
         EntityUser user = entity.get();
@@ -35,15 +36,14 @@ public class DevolverMensagensChatService {
         Optional<EntityChat> optionalEntityChat = repositoryChat.findById(id_chat);
 
         if(optionalEntityChat.isEmpty()) {
-            return new ArrayList<>();
+            return ResponseEntity.badRequest().body(new ArrayList<>());
         }
 
         EntityChat entityChat = optionalEntityChat.get();
 
         if(!entityChat.getUsuarios().contains(user)) {
-            return new ArrayList<>();
+            return ResponseEntity.badRequest().body(new ArrayList<>());
         }
-
-        return entityChat.getMessageList().stream().toList();
+        return ResponseEntity.ok(entityChat.getMessageList());
     }
 }

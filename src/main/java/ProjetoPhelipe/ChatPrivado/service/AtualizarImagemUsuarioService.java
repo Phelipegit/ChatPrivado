@@ -16,11 +16,11 @@ import java.util.Optional;
 @Service
 public class AtualizarImagemUsuarioService {
 
-    private final ProcessarBase64ToPng processarBase64ToPng;
+    private final ProcessarBase64ToPngService processarBase64ToPngService;
     private final RepositoryUser repositoryUser;
 
-    public AtualizarImagemUsuarioService(ProcessarBase64ToPng processarBase64ToPng, RepositoryUser repositoryUser) {
-        this.processarBase64ToPng = processarBase64ToPng;
+    public AtualizarImagemUsuarioService(ProcessarBase64ToPngService processarBase64ToPngService, RepositoryUser repositoryUser) {
+        this.processarBase64ToPngService = processarBase64ToPngService;
         this.repositoryUser = repositoryUser;
     }
 
@@ -42,7 +42,7 @@ public class AtualizarImagemUsuarioService {
 
         EntityUser entityUser = giveEntity.get();
 
-        String urlNew = processarBase64ToPng.enviarReq(request.getBase64());
+        String urlNew = processarBase64ToPngService.enviarReq(request.getBase64());
 
         entityUser.setPerfilImagem(urlNew);
 

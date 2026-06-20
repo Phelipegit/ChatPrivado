@@ -1,10 +1,8 @@
 package ProjetoPhelipe.ChatPrivado.controller;
 
 import ProjetoPhelipe.ChatPrivado.dto.*;
-import ProjetoPhelipe.ChatPrivado.entity.EntityChat;
 import ProjetoPhelipe.ChatPrivado.entity.EntityMessage;
 import ProjetoPhelipe.ChatPrivado.service.*;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +19,7 @@ public class UserController {
     private final DevolverDadosQualquerUsuario devolverDadosQualquerUsuario;
     private final DevolverDadosPessoaisUsuario devolverDadosPessoaisUsuario;
     private final ListaTodosUsuariosService listaTodosUsuariosService;
+    private final DevolverChatsUsuario devolverChatsUsuario;
     private final CriarChatService criarChatService;
     private final DevolverMensagensChatService devolverMensagensChatService;
 
@@ -29,6 +28,7 @@ public class UserController {
                           DevolverDadosQualquerUsuario devolverDadosQualquerUsuario ,
                           DevolverDadosPessoaisUsuario devolverDadosPessoaisUsuario,
                           ListaTodosUsuariosService listaTodosUsuariosService,
+                          DevolverChatsUsuario devolverChatsUsuario,
                           CriarChatService criarChatService,
                           DevolverMensagensChatService devolverMensagensChatService) {
         this.atualizarImagemUsuarioService = atualizarImagemUsuarioService;
@@ -36,6 +36,7 @@ public class UserController {
         this.devolverDadosQualquerUsuario = devolverDadosQualquerUsuario;
         this.devolverDadosPessoaisUsuario = devolverDadosPessoaisUsuario;
         this.listaTodosUsuariosService = listaTodosUsuariosService;
+        this.devolverChatsUsuario = devolverChatsUsuario;
         this.criarChatService = criarChatService;
         this.devolverMensagensChatService = devolverMensagensChatService;
     }
@@ -65,13 +66,18 @@ public class UserController {
         return listaTodosUsuariosService.listarTodosUsuarios();
     }
 
+    @GetMapping("/devolverAllChats")
+    public ResponseEntity<List<DDPChats>> devolverChatsUsuario() {
+        return devolverChatsUsuario.devolverChatsUsuario();
+    }
+
     @PostMapping("/chat/criarChat")
     public ResponseEntity<CriarChatResponse> criarChat(@RequestBody CriarChatRequest request) {
         return criarChatService.criarChat(request);
     }
 
     @GetMapping("/chat/{id}/mensagens")
-    public List<EntityMessage> devolverMensagensChat(@PathVariable UUID id) {
+    public ResponseEntity<List<EntityMessage>> devolverMensagensChat(@PathVariable UUID id) {
         return devolverMensagensChatService.devolverMensagensChat(id);
     }
 }

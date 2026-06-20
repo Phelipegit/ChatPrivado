@@ -33,12 +33,12 @@ public class CriarMensagemService {
     }
 
     @Transactional
-    public ResponseEntity<CriarMensagemResponse> criarMensagemService(@RequestBody CriarMensagemRequest request,UUID chat_id) {
+    public CriarMensagemResponse criarMensagemService(@RequestBody CriarMensagemRequest request,UUID chat_id) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.badRequest().body(new CriarMensagemResponse(null,null,null,null));
+            return new CriarMensagemResponse(null,null,null,null,null);
         }
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -46,7 +46,7 @@ public class CriarMensagemService {
         Optional<EntityUser> existUserAut = repositoryUser.findByEmail(userDetails.getUsername());
 
         if(existUserAut.isEmpty()) {
-            return ResponseEntity.badRequest().body(new CriarMensagemResponse(null,null,null,null));
+            return new CriarMensagemResponse(null,null,null,null,null);
         }
 
         EntityUser user = existUserAut.get();
@@ -54,19 +54,19 @@ public class CriarMensagemService {
         Optional<EntityChat> existChat = repositoryChat.findById(chat_id);
 
         if(existChat.isEmpty()) {
-            return ResponseEntity.badRequest().body(new CriarMensagemResponse(null,null,null,null));
+            return new CriarMensagemResponse(null,null,null,null,null);
         }
 
         EntityChat chat = existChat.get();
 
         if(!chat.getUsuarios().contains(user)) {
-            return ResponseEntity.badRequest().body(new CriarMensagemResponse(null,null,null,null));
+            return new CriarMensagemResponse(null,null,null,null,null);
         }
 
         EntityMessage entityMessage = new EntityMessage(request.getMessage(),chat,user);
 
         repositoryMessage.save(entityMessage);
 
-        return ResponseEntity.ok(new CriarMensagemResponse(true, entityMessage.getMessage(),user.getUsername(),entityMessage.getCreatedAt()));
+        return new CriarMensagemResponse(entityMessage.getId(),true,entityMessage.getMessage(),user.getUsername(),entityMessage.getCreatedAt());
     }
 }

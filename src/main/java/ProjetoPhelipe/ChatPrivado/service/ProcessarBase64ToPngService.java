@@ -14,7 +14,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 @Service
-public class ProcessarBase64ToPng {
+public class ProcessarBase64ToPngService {
 
     @Value("${URL_API}")
     private String URL_API;
@@ -24,7 +24,7 @@ public class ProcessarBase64ToPng {
 
     private final ObjectMapper objectMapper;
 
-    public ProcessarBase64ToPng(ObjectMapper objectMapper) {
+    public ProcessarBase64ToPngService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

@@ -3,9 +3,12 @@ package ProjetoPhelipe.ChatPrivado.dto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 public class CriarMensagemResponse {
+
+    private UUID id;
 
     private Boolean success;
 
@@ -15,7 +18,8 @@ public class CriarMensagemResponse {
 
     private LocalDateTime creatAt;
 
-    public CriarMensagemResponse(Boolean success,String message,String userSender,LocalDateTime creatAt) {
+    public CriarMensagemResponse(UUID id,Boolean success,String message,String userSender,LocalDateTime creatAt) {
+        this.id = id;
         this.success = success;
         this.message = message;
         this.userSender = userSender;
