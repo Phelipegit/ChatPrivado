@@ -1,6 +1,5 @@
 package ProjetoPhelipe.ChatPrivado.service;
 
-import ProjetoPhelipe.ChatPrivado.dto.CriarChatResponse;
 import ProjetoPhelipe.ChatPrivado.dto.CriarMensagemRequest;
 import ProjetoPhelipe.ChatPrivado.dto.CriarMensagemResponse;
 import ProjetoPhelipe.ChatPrivado.entity.EntityChat;
