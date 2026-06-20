@@ -1,4 +1,5 @@
 package ProjetoPhelipe.ChatPrivado.service;
+import ProjetoPhelipe.ChatPrivado.dto.DDPDevolverMensagensChat;
 import ProjetoPhelipe.ChatPrivado.entity.EntityChat;
 import ProjetoPhelipe.ChatPrivado.entity.EntityMessage;
 import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
@@ -23,7 +24,7 @@ public class DevolverMensagensChatService {
         this.authUser = authUser;
     }
 
-    public ResponseEntity<List<EntityMessage>> devolverMensagensChat(UUID id_chat) {
+    public ResponseEntity<List<DDPDevolverMensagensChat>> devolverMensagensChat(UUID id_chat) {
 
         Optional<EntityUser> entity = authUser.getUsuarioAutenticado();
 
@@ -44,6 +45,7 @@ public class DevolverMensagensChatService {
         if(!entityChat.getUsuarios().contains(user)) {
             return ResponseEntity.badRequest().body(new ArrayList<>());
         }
-        return ResponseEntity.ok(entityChat.getMessageList());
+        return ResponseEntity.ok(entityChat.getMessageList().stream().map(element -> new DDPDevolverMensagensChat(element.getId(),
+                element.getMessage(),element.getSender().getUsername(),element.getCreatedAt())).toList());
     }
 }

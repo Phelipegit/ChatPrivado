@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,17 +34,9 @@ public class CriarMensagemService {
     }
 
     @Transactional
-    public CriarMensagemResponse criarMensagemService(@RequestBody CriarMensagemRequest request,UUID chat_id) {
+    public CriarMensagemResponse criarMensagemService(CriarMensagemRequest request, UUID chat_id,Principal principal) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication == null || !authentication.isAuthenticated()) {
-            return new CriarMensagemResponse(null,null,null,null,null);
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        Optional<EntityUser> existUserAut = repositoryUser.findByEmail(userDetails.getUsername());
+        Optional<EntityUser> existUserAut = repositoryUser.findByEmail(principal.getName());
 
         if(existUserAut.isEmpty()) {
             return new CriarMensagemResponse(null,null,null,null,null);

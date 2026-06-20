@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @GetMapping("/chat/{id}/mensagens")
-    public ResponseEntity<List<EntityMessage>> devolverMensagensChat(@PathVariable UUID id) {
+    public ResponseEntity<List<DDPDevolverMensagensChat>> devolverMensagensChat(@PathVariable UUID id) {
         return devolverMensagensChatService.devolverMensagensChat(id);
     }
 }

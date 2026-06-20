@@ -1,0 +1,21 @@
+#div-principal {
+  display: flex;
+  align-self: center;
+  gap: 20px;
+  justify-content: center;
+  height: 100vh;
+}
+
+img {
+  border-radius: 200px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.button-foto {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}

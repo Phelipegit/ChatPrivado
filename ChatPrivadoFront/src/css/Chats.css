@@ -1,0 +1,37 @@
+.chats-list {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+.button-chat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 0.5px solid #726e6e;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.button-chat:hover {
+    background: #2b2a2a;
+}
+
+.chat-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.chat-username {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    color: white;
+}

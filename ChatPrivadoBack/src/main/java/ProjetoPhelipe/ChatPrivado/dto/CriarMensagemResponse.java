@@ -16,13 +16,13 @@ public class CriarMensagemResponse {
 
     private String userSender;
 
-    private LocalDateTime creatAt;
+    private LocalDateTime createAt;
 
-    public CriarMensagemResponse(UUID id,Boolean success,String message,String userSender,LocalDateTime creatAt) {
+    public CriarMensagemResponse(UUID id,Boolean success,String message,String userSender,LocalDateTime createAt) {
         this.id = id;
         this.success = success;
         this.message = message;
         this.userSender = userSender;
-        this.creatAt = creatAt;
+        this.createAt = createAt;
     }
 }
