@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
 
-    const URL = "http://localhost:5173/";
-
     function Sair() {
         localStorage.removeItem("token");
 
