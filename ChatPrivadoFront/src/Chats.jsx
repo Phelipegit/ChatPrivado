@@ -3,7 +3,7 @@ import './css/Chats.css'
 export default function Chats() {
 
     const TOKEN = localStorage.getItem("token");
-    const API_URL = "http://localhost:8080";
+    const API_URL = "https://chatprivado-x4wz.onrender.com";
     const [data, setData] = useState([]);
     useEffect(() => {
 

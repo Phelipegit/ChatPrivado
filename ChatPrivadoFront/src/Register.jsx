@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./css/Register.css";
 
 export default function Register() {
+  const API_URL = "https://chatprivado-x4wz.onrender.com";
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: "", username: "", password: "" });
   const [color,setColor] = useState("red");
@@ -19,7 +20,7 @@ export default function Register() {
         return;
     }
 
-    const response = await fetch('http://localhost:8080/auth/register', {
+    const response = await fetch(`${API_URL}/auth/register`, {
         method:"POST",
         headers: {
             "Content-Type":"application/json"

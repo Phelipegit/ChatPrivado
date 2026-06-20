@@ -2,7 +2,7 @@ import { useEffect, useRef ,useState } from "react";
 import './css/Perfil.css'
 export default function Perfil() {
 
-    const API_URL = "http://localhost:8080";
+    const API_URL = "https://chatprivado-x4wz.onrender.com";
 
     const[username,setUsername] = useState();
     const[fotoPerfil,setFoto] = useState(); 

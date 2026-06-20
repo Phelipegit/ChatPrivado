@@ -5,7 +5,7 @@ import SockJS from "sockjs-client";
 import "./css/Chat.css";
 
 export default function Chat() {
-    const API_URL = "http://localhost:8080";
+    const API_URL = "https://chatprivado-x4wz.onrender.com";
     const [msg, setMsg] = useState("");
     const [data, setData] = useState([]);
     const [user, setUser] = useState("");

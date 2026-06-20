@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./css/Login.css"
 
 export default function Login() {
+  const API_URL = "https://chatprivado-x4wz.onrender.com";
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
   const [color, setColor] = useState("red");
@@ -19,7 +20,7 @@ export default function Login() {
       return;
     }
 
-    const response = await fetch("http://localhost:8080/auth/login", {
+    const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
