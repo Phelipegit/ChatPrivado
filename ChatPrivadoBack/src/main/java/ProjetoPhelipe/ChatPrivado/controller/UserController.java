@@ -22,6 +22,7 @@ public class UserController {
     private final DevolverChatsUsuario devolverChatsUsuario;
     private final CriarChatService criarChatService;
     private final DevolverMensagensChatService devolverMensagensChatService;
+    private final DevolverDadosParticipantesChat devolverDadosParticipantesChat;
 
     public UserController(AtualizarImagemUsuarioService atualizarImagemUsuarioService,
                           UserUpdatePasswordService userUpdatePasswordService,
@@ -30,7 +31,8 @@ public class UserController {
                           ListaTodosUsuariosService listaTodosUsuariosService,
                           DevolverChatsUsuario devolverChatsUsuario,
                           CriarChatService criarChatService,
-                          DevolverMensagensChatService devolverMensagensChatService) {
+                          DevolverMensagensChatService devolverMensagensChatService,
+                          DevolverDadosParticipantesChat devolverDadosParticipantesChat) {
         this.atualizarImagemUsuarioService = atualizarImagemUsuarioService;
         this.userUpdatePasswordService = userUpdatePasswordService;
         this.devolverDadosQualquerUsuario = devolverDadosQualquerUsuario;
@@ -39,6 +41,7 @@ public class UserController {
         this.devolverChatsUsuario = devolverChatsUsuario;
         this.criarChatService = criarChatService;
         this.devolverMensagensChatService = devolverMensagensChatService;
+        this.devolverDadosParticipantesChat = devolverDadosParticipantesChat;
     }
 
     @PutMapping("/updatePng")
@@ -79,5 +82,10 @@ public class UserController {
     @GetMapping("/chat/{id}/mensagens")
     public ResponseEntity<List<DDPDevolverMensagensChat>> devolverMensagensChat(@PathVariable UUID id) {
         return devolverMensagensChatService.devolverMensagensChat(id);
+    }
+
+    @GetMapping("/chat/{id}/devolverDadosParticipantes")
+    public ResponseEntity<List<DDPUser>> devolverDadosParticipantesChat(@PathVariable UUID id) {
+        return devolverDadosParticipantesChat.devolverUsuarios(id);
     }
 }

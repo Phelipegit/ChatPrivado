@@ -15,11 +15,9 @@ import java.util.Optional;
 @Service
 public class DevolverDadosPessoaisUsuario {
 
-    private final RepositoryUser repositoryUser;
     private final AuthUser authUser;
 
-    public DevolverDadosPessoaisUsuario(RepositoryUser repositoryUser,AuthUser authUser) {
-        this.repositoryUser = repositoryUser;
+    public DevolverDadosPessoaisUsuario(AuthUser authUser) {
         this.authUser = authUser;
     }
 

@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface RepositoryChat extends JpaRepository<EntityChat, UUID> {
 
+    UUID id(UUID id);
 }

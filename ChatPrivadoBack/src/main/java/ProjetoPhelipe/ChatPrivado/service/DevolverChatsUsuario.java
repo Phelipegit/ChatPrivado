@@ -40,7 +40,6 @@ public class DevolverChatsUsuario {
             } else {
                 ultimaMsg = chat.getMessageList().getLast().getMessage();
             }
-
             return new DDPChats(chat.getId(),outro.getUsername(),outro.getPerfilImagem(),ultimaMsg);
         }).toList());
     }
