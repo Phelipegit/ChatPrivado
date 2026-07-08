@@ -50,8 +50,6 @@ export default function Login() {
         <div className="brand"></div>
 
         <div style={{ textAlign: "center" }}>
-          <p style={{color:"red"}}>BACKEND INATIVO!</p>
-          <p style={{color:"red"}}>BACKEND INATIVO!</p>
           <h1>Entre na sua conta</h1>
           <p className="subtitle">Preencha os campos para continuar.</p>
         </div>
