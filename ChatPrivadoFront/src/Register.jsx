@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./css/Register.css";
 
 export default function Register() {
@@ -8,6 +8,12 @@ export default function Register() {
   const [color,setColor] = useState("red");
   const [msg,setMsg] = useState("");
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(token) {
+      window.location.href= "/home";
+    }
+  },[])
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
