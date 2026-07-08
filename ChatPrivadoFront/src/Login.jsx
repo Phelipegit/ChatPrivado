@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./css/Login.css"
 
 export default function Login() {
-  const API_URL = "https://chatprivado-x4wz.onrender.com";
+  const API_URL = "https://api.phelipedev.com.br";
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
   const [color, setColor] = useState("red");
@@ -41,6 +41,7 @@ export default function Login() {
       setColor("red");
       setMsg(data.message || "Email ou senha inválidos");
     }
+
   }
 
   return (

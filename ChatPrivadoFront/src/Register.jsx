@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./css/Register.css";
 
 export default function Register() {
-  const API_URL = "https://chatprivado-x4wz.onrender.com";
+  const API_URL = "https://api.phelipedev.com.br";
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: "", username: "", password: "" });
   const [color,setColor] = useState("red");

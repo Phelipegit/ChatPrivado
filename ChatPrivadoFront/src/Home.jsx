@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./css/Home.css"
 export default function Home() {
 
-    const API_URL = "https://chatprivado-x4wz.onrender.com";
+    const API_URL = "https://api.phelipedev.com.br";
     const TOKEN = localStorage.getItem("token");
     const[dataUsers,setData] = useState([]);
 
