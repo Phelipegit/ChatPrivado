@@ -6,6 +6,7 @@ import ProjetoPhelipe.ChatPrivado.entity.EntityUser;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryChat;
 import ProjetoPhelipe.ChatPrivado.security.AuthUser;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 
@@ -26,28 +27,25 @@ public class DevolverDadosParticipantesChat {
     }
 
     public ResponseEntity<List<DDPUser>> devolverUsuarios(UUID id_chat) {
+        Optional<EntityUser> user = authUser.getUsuarioAutenticado();
 
-        Optional<EntityUser> userReq = authUser.getUsuarioAutenticado();
-
-        if(userReq.isEmpty()) {
+        if(user.isEmpty()) {
             return ResponseEntity.badRequest().body(new ArrayList<>());
         }
 
-        EntityUser entityUserReq = userReq.get();
+        Optional<EntityChat> entityChat = repositoryChat.findById(id_chat);
 
-        Optional<EntityChat> existEntityChat = repositoryChat.findById(id_chat);
-
-        if(existEntityChat.isEmpty()) {
+        if(entityChat.isEmpty()) {
             return ResponseEntity.badRequest().body(new ArrayList<>());
         }
 
-        EntityChat entityChat = existEntityChat.get();
+        EntityChat chat = entityChat.get();
 
-        if(!entityChat.getUsuarios().contains(entityUserReq)) {
+        if(!chat.getUsuarios().contains(user.get())) {
             return ResponseEntity.badRequest().body(new ArrayList<>());
         }
 
-        return ResponseEntity.ok(entityChat.getUsuarios().stream().map(element -> new DDPUser(element.getUsername(),element.getPerfilImagem(),true)).toList());
+        return ResponseEntity.ok(chat.getUsuarios().stream().map(e -> new DDPUser(e.getUsername(),e.getPerfilImagem(),true)).toList());
     }
 
 }

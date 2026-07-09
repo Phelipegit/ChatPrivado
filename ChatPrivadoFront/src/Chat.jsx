@@ -17,7 +17,7 @@ export default function Chat() {
 
     useEffect(() => {
         async function devolverDadosUser() {
-            const response = await fetch(`${API_URL}/api/u/devolverDados`, {
+            const response = await fetch(`${API_URL}/api/u/chat/${id}/devolverDadosParticipantes`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
