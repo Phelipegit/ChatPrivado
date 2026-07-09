@@ -29,7 +29,7 @@ public class UserLoginService {
 
     @Transactional
     public ResponseEntity<UserLoginResponse> userLogin(UserLoginRequest request) {
-        Optional<EntityUser> exist = repositoryUser.findByEmail(request.getEmail());
+        Optional<EntityUser> exist = repositoryUser.findByEmail(request.getEmail().toLowerCase());
 
         if(exist.isEmpty()) {
             return ResponseEntity.badRequest().body(new UserLoginResponse("Usuário não existe",false,null));
