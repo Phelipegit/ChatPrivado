@@ -41,7 +41,7 @@ public class UserLoginService {
             return ResponseEntity.badRequest().body(new UserLoginResponse("Senha incorreta",false,null));
         }
 
-        String token = jwtService.generateToken(request.getEmail());
+        String token = jwtService.generateToken(request.getEmail().toLowerCase());
 
         return ResponseEntity.ok(new UserLoginResponse("Usuário logado com sucesso",true,token));
     }
