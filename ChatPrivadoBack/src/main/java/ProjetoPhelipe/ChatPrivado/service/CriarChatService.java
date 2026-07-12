@@ -8,6 +8,7 @@ import ProjetoPhelipe.ChatPrivado.repository.RepositoryChat;
 import ProjetoPhelipe.ChatPrivado.repository.RepositoryUser;
 import ProjetoPhelipe.ChatPrivado.security.AuthUser;
 import jakarta.transaction.Transactional;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class CriarChatService {
     private final RepositoryUser repositoryUser;
     private final RepositoryChat repositoryChat;
     private final AuthUser authUser;
+
 
     public CriarChatService(RepositoryUser repositoryUser,RepositoryChat repositoryChat,AuthUser authUser) {
         this.repositoryUser = repositoryUser;

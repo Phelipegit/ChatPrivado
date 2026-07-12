@@ -7,14 +7,16 @@ import Home from './Home'
 import NavBar from './Navbar'
 import Chat from './Chat'
 import Chats from './Chats'
+import UpdatePassword from './UpdatePassword'
 function App() {
   const location = useLocation();
-  const rotasSemNavbar = ['/login', '/register'];
+  const rotasSemNavbar = ['/login', '/register','/updatePassword'];
   return (
     <>
     {!rotasSemNavbar.includes(location.pathname) && <NavBar />}
     <Routes>
       <Route path = '*' element = {<Navigate to="/login"/>}></Route>
+      <Route path='/updatePassword' element={<UpdatePassword />}></Route>
       <Route path='/profile' element={<Perfil />}></Route>
       <Route path = '/chat/:id' element={<Chat />}></Route>
       <Route path = '/chats' element={<Chats />}></Route>

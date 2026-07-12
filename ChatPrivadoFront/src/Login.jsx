@@ -1,4 +1,4 @@
-import { useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import "./css/Login.css"
 
 export default function Login() {
@@ -8,13 +8,13 @@ export default function Login() {
   const [color, setColor] = useState("red");
   const [msg, setMsg] = useState("");
 
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      console.log(token);
-      if(token) {
-        window.location.href= "/home";
-      }
-    },[])
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    if (token) {
+      window.location.href = "/home";
+    }
+  }, [])
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -27,28 +27,32 @@ export default function Login() {
       return;
     }
 
-    const response = await fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.success) {
-      setColor("green");
-      setMsg(data.message);
-      localStorage.setItem("token", data.token);
-      setTimeout(() => {
-        window.location.href = "/home";
-      }, 2000);
-    } else {
-      setColor("red");
-      setMsg(data.message || "Email ou senha inválidos");
+      if (data.success) {
+        setColor("green");
+        setMsg(data.message);
+        localStorage.setItem("token", data.token);
+        setTimeout(() => {
+          window.location.href = "/home";
+        }, 2000);
+      } else {
+        setColor("red");
+        setMsg(data.message || "Email ou senha inválidos");
+      }
+
+    }catch(err) {
+      setMsg(err + "");
     }
-
   }
 
   return (
@@ -105,6 +109,7 @@ export default function Login() {
         <p className="footer">
           Não tem uma conta? <a href="/register">Cadastrar</a>
         </p>
+        <p className="footer"><a href="/updatePassword">Esqueceu a senha?</a></p>
       </div>
     </div>
   );

@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 
 @Entity
@@ -18,7 +20,6 @@ public class EntityMessage {
     @Column(nullable = false)
     private String message;
 
-    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne()
@@ -31,6 +32,7 @@ public class EntityMessage {
 
     public EntityMessage(String message,EntityChat chat,EntityUser entityUser) {
         this.message = message;
+        this.createdAt = LocalDateTime.now(ZoneId.of("America/Campo_Grande"));
         this.chat = chat;
         this.sender = entityUser;
     }

@@ -1,9 +1,13 @@
 package ProjetoPhelipe.ChatPrivado.dto;
 
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 
 @Getter
 public class UserUpdatePasswordRequest {
+
+    @Email
+    private String email;
 
     private String atualPassword;
 
@@ -11,7 +15,8 @@ public class UserUpdatePasswordRequest {
 
     private String confirmNewPassword;
 
-    public UserUpdatePasswordRequest(String atualPassword, String newPassword, String confirmNewPassword) {
+    public UserUpdatePasswordRequest(String id,String atualPassword, String newPassword, String confirmNewPassword) {
+        this.email = id;
         this.atualPassword = atualPassword;
         this.newPassword = newPassword;
         this.confirmNewPassword = confirmNewPassword;

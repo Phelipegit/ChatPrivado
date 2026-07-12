@@ -27,41 +27,5 @@ public class UserUpdatePasswordService {
 
     @Transactional
     public ResponseEntity<UserUpdatePasswordResponse> updatePassword(UserUpdatePasswordRequest request) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("Erro ao validar usuário",false));
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        if(request.getNewPassword().length() < 8) {
-            return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("Senha nova precisa ter no mínimo 8 dígitos",false));
-        }
-
-        if(!request.getNewPassword().equals(request.getConfirmNewPassword())) {
-            return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("A nova senha e a confirmação não são iguais",false));
-        }
-
-        Optional<EntityUser> entityUser = repositoryUser.findByEmail(userDetails.getUsername());
-
-        if(entityUser.isEmpty()) {
-            return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("Usuário não encontrado",false));
-        }
-
-        EntityUser user = entityUser.get();
-
-        if(!passwordEncoder.matches(request.getAtualPassword(),user.getPassword())) {
-            return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("Senha atual não se confere",false));
-        }
-
-        String newPassword = passwordEncoder.encode(request.getNewPassword());
-
-        user.setPassword(newPassword);
-
-        repositoryUser.save(user);
-
-        return ResponseEntity.ok(new UserUpdatePasswordResponse("Senha alterada com sucesso",true));
     }
 }
