@@ -109,7 +109,7 @@ export default function Login() {
         <p className="footer">
           Não tem uma conta? <a href="/register">Cadastrar</a>
         </p>
-        <p className="footer"><a href="/updatePassword">Esqueceu a senha?</a></p>
+        <p className="footer"><a href="/password/sendEmail">Esqueceu a senha?</a></p>
       </div>
     </div>
   );

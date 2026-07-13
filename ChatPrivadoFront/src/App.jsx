@@ -10,7 +10,7 @@ import Chats from './Chats'
 import UpdatePassword from './UpdatePassword'
 function App() {
   const location = useLocation();
-  const rotasSemNavbar = ['/login', '/register','/updatePassword'];
+  const rotasSemNavbar = ['/login', '/register','/password/sendEmail','/updatePassword/:id'];
   return (
     <>
     {!rotasSemNavbar.includes(location.pathname) && <NavBar />}

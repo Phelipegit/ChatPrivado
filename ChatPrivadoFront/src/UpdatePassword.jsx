@@ -11,7 +11,7 @@ export default function UpdatePassword() {
             setMessage("Insira um e-mail válido");
         }
         
-        const response = await fetch(`${API_URL} + /password/sendEmail`,{
+        const response = await fetch(`${API_URL}/password/sendEmail`,{
             method:"POST",
             headers: {
                 "Content-Type":"application/json"
