@@ -12,7 +12,7 @@ export default function UpdatePassword() {
             return;
         }
         
-        const response = await fetch(`${API_URL}/password/sendEmail`,{
+        const response = await fetch(`${API_URL}/auth/password/sendEmail`,{
             method:"POST",
             headers: {
                 "Content-Type":"application/json"

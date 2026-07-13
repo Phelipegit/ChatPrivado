@@ -1,7 +1,6 @@
 package ProjetoPhelipe.ChatPrivado.controller;
 
 import ProjetoPhelipe.ChatPrivado.dto.*;
-import ProjetoPhelipe.ChatPrivado.entity.EntityMessage;
 import ProjetoPhelipe.ChatPrivado.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
