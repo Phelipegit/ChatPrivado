@@ -1,22 +1,27 @@
 package ProjetoPhelipe.ChatPrivado.service;
 
 import ProjetoPhelipe.ChatPrivado.dto.UserUpdatePasswordRequest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.UUID;
 
 @Service
 public class RedefinicaoSenhaService {
 
     private EmailService emailService;
+    private RedisTemplate<String,Object> redisTemplate;
 
-    public RedefinicaoSenhaService(EmailService emailService) {
+    public RedefinicaoSenhaService(EmailService emailService,RedisTemplate<String,Object> redisTemplate) {
         this.emailService = emailService;
+        this.redisTemplate = redisTemplate;
     }
 
-
     public void redefinirSenha(UserUpdatePasswordRequest request) {
-        UUID token = UUID.randomUUID();
+        String token = UUID.randomUUID().toString();
+
+        redisTemplate.opsForValue().set(token,request.getEmail().trim().toLowerCase(), Duration.ofMinutes(10));
 
         String url = "https://app.phelipedev.com.br/updatePassword/" + token;
 
