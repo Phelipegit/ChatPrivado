@@ -8,6 +8,8 @@ import ProjetoPhelipe.ChatPrivado.service.UserUpdatePasswordService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -42,7 +44,7 @@ public class AuthController {
         redefinicaoSenhaService.redefinirSenha(request);
     }
 
-    @PutMapping("/password/update")
+    @PutMapping("/password/update/{id}")
     public ResponseEntity<UserUpdatePasswordResponse> updatePassword(@RequestBody UserUpdatePasswordRequest request) {
         return userUpdatePasswordService.updatePassword(request);
     }
