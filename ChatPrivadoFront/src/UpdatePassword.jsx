@@ -1,6 +1,6 @@
 import { useState } from "react"
 export default function UpdatePassword() {
-    const API_URL = "api.phelipedev.com.br";
+    const API_URL = "https://api.phelipedev.com.br";
     const [email,setEmail] = useState("");
     const [message,setMessage] = useState("");
     const [success,setSucess] = useState(false);
@@ -9,6 +9,7 @@ export default function UpdatePassword() {
         
         if(email.trim() == "") {
             setMessage("Insira um e-mail válido");
+            return;
         }
         
         const response = await fetch(`${API_URL}/password/sendEmail`,{
