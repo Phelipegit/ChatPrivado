@@ -31,6 +31,12 @@ public class UserUpdatePasswordService {
     @Transactional
     public ResponseEntity<UserUpdatePasswordResponse> updatePassword(UserUpdatePasswordRequest request) {
 
+        Object valueToken = redisTemplate.opsForValue().get(request.getToken());
+
+        if(valueToken == null) {
+            return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse(null, false));
+        }
+
         if(!request.getNewPassword().equals(request.getConfirmNewPassword())) {
             return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("As senhas não são iguais",false));
         }
@@ -39,7 +45,7 @@ public class UserUpdatePasswordService {
             return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("A senha nova precisa ter no mínimo 8 dígitos",false));
         }
 
-        Optional<EntityUser> entity = repositoryUser.findByEmail((String )redisTemplate.opsForValue().get(request.getToken()));
+        Optional<EntityUser> entity = repositoryUser.findByEmail((String) valueToken);
 
         if(entity.isEmpty()) {
             return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse(null, false));
@@ -48,6 +54,8 @@ public class UserUpdatePasswordService {
         if(passwordEncoder.matches(request.getAtualPassword(),entity.get().getPassword())) {
             return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse("A senha atual e a nova senha são iguais",false));
         }
+
+        redisTemplate.delete(request.getToken());
 
         EntityUser entityUser = entity.get();
 

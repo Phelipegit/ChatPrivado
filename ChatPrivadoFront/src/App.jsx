@@ -15,8 +15,9 @@ function App() {
     <>
     {!rotasSemNavbar.includes(location.pathname) && <NavBar />}
     <Routes>
+      <Route path='/updatePassword/:id'></Route>
       <Route path = '*' element = {<Navigate to="/login"/>}></Route>
-      <Route path='/updatePassword' element={<UpdatePassword />}></Route>
+      <Route path='/password/sendEmail' element={<UpdatePassword />}></Route>
       <Route path='/profile' element={<Perfil />}></Route>
       <Route path = '/chat/:id' element={<Chat />}></Route>
       <Route path = '/chats' element={<Chats />}></Route>

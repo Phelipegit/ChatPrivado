@@ -43,7 +43,7 @@ public class AuthController {
     }
 
     @PutMapping("/password/update")
-    public ResponseEntity<UserUpdatePasswordResponse> updatePassword(@RequestBody UserUpdatePasswordRequest request) {]
-
+    public ResponseEntity<UserUpdatePasswordResponse> updatePassword(@RequestBody UserUpdatePasswordRequest request) {
+        return userUpdatePasswordService.updatePassword(request);
     }
 }

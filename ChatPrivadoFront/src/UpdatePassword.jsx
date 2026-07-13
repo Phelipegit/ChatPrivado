@@ -1,5 +1,4 @@
 import { useState } from "react"
-
 export default function UpdatePassword() {
     const API_URL = "api.phelipedev.com.br"
     const [email,setEmail] = useState("");
@@ -7,6 +6,11 @@ export default function UpdatePassword() {
     const [success,setSucess] = useState(false);
 
     async function enviarEmailToken() {
+        
+        if(email.trim() == "") {
+            setMessage("Insira um e-mail válido");
+        }
+        
         const response = await fetch(`${API_URL} + /password/sendEmail`,{
             method:"POST",
             headers: {
@@ -15,23 +19,26 @@ export default function UpdatePassword() {
             body: JSON.stringify({"email":email})
         });
 
+        console.log(JSON.stringify({"email":email}));
+
         const data = await response.json();
 
         
 
         if(data.success) {
-            setMessage("Um link para redefinição de senha foi enviado para seu e-mail");
+            setMessage("Um link para redefinir a senha foi enviado para seu e-mail");
             setSucess(true);
         }
     }
 
     return (
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <div  id="container-principal" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
             <h1>Redefinição de senha</h1>
             <strong>Insira seu e-mail</strong>
-            <input placeholder="seu@email.com" onChange={(a => (a.target.value))}/>
+            <label>E-mail</label>
+            <input placeholder="seu@email.com" onChange={(a => setEmail(a.target.value))}/>
             <p style={{color: success ? "green" : "red"}}>{message}</p>
-            <button onClick={enviarEmailToken()}>Enviar e-mail de verificação</button>
+            <button onClick={() => enviarEmailToken()}>Redefinir senha</button>
         </div>
     )
 }
