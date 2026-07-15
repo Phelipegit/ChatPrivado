@@ -1,5 +1,5 @@
 import { useState } from "react"
-export default function UpdatePassword() {
+export default function sendEmailPassword() {
     const API_URL = "https://api.phelipedev.com.br";
     const [email,setEmail] = useState("");
     const [message,setMessage] = useState("");

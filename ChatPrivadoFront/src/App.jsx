@@ -7,7 +7,7 @@ import Home from './Home'
 import NavBar from './Navbar'
 import Chat from './Chat'
 import Chats from './Chats'
-import UpdatePassword from './UpdatePassword'
+import sendEmailPassword from './SendEmailPassword'
 function App() {
   const location = useLocation();
   const rotasSemNavbar = ['/login', '/register','/password/sendEmail','/updatePassword/:id'];
@@ -17,7 +17,7 @@ function App() {
     <Routes>
       <Route path='/updatePassword/:id'></Route>
       <Route path = '*' element = {<Navigate to="/login"/>}></Route>
-      <Route path='/password/sendEmail' element={<UpdatePassword />}></Route>
+      <Route path='/password/sendEmail' element={<sendEmailPassword />}></Route>
       <Route path='/profile' element={<Perfil />}></Route>
       <Route path = '/chat/:id' element={<Chat />}></Route>
       <Route path = '/chats' element={<Chats />}></Route>

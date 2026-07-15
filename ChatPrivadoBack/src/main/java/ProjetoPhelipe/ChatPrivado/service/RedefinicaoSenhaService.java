@@ -21,6 +21,7 @@ public class RedefinicaoSenhaService {
     }
 
     public ResponseEntity<UserUpdatePasswordResponse> redefinirSenha(UserUpdatePasswordRequest request) {
+
         String token = UUID.randomUUID().toString();
 
         redisTemplate.opsForValue().set(token,request.getEmail().trim().toLowerCase(), Duration.ofMinutes(10));
