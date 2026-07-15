@@ -1,4 +1,5 @@
 import { useState } from "react"
+import "./css/SendEmailPassword.css"
 export default function SendEmailPassword() {
     const API_URL = "https://api.phelipedev.com.br";
     const [email, setEmail] = useState("");
@@ -22,15 +23,12 @@ export default function SendEmailPassword() {
 
             const data = await response.json();
 
-            setMessage(data.response);
+            setMessage(data.message);
 
             if (data.success) {
                 setSucess(true);
-            } else {
-                setSucess(false);
             }
         }catch(err) {
-            setSucess(false);
             setMessage(err);
         }
     }

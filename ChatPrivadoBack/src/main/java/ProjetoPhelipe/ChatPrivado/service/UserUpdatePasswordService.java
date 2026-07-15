@@ -31,9 +31,13 @@ public class UserUpdatePasswordService {
     @Transactional
     public ResponseEntity<UserUpdatePasswordResponse> updatePassword(UserUpdatePasswordRequest request) {
 
-        Object valueToken = redisTemplate.opsForValue().get(request.getToken());
+        Object valueToken = redisTemplate.opsForValue().get(request.getEmail().trim().toLowerCase());
 
         if(valueToken == null) {
+            return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse(null, false));
+        }
+
+        if(!valueToken.equals(request.getToken())) {
             return ResponseEntity.badRequest().body(new UserUpdatePasswordResponse(null, false));
         }
 
