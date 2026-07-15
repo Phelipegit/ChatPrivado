@@ -5,15 +5,15 @@ export default function Register() {
   const API_URL = "https://api.phelipedev.com.br";
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: "", username: "", password: "" });
-  const [color,setColor] = useState("red");
-  const [msg,setMsg] = useState("");
+  const [color, setColor] = useState("red");
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if(token) {
-      window.location.href= "/home";
+    if (token) {
+      window.location.href = "/home";
     }
-  },[])
+  }, [])
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -21,28 +21,32 @@ export default function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if(form.email.trim() == "" || form.username.trim() == "" || form.password.trim() == "") {
-        setMsg("Valores não podem serem vazios");
-        return;
+    if (form.email.trim() == "" || form.username.trim() == "" || form.password.trim() == "") {
+      setMsg("Valores não podem serem vazios");
+      return;
     }
 
-    const response = await fetch(`${API_URL}/auth/register`, {
-        method:"POST",
+    try {
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
         headers: {
-            "Content-Type":"application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(form)
-    });
+      });
 
-    const data = await response.json();
-    
-    setMsg(data.message);
+      const data = await response.json();
 
-    if(data.success) {
+      setMsg(data.message);
+
+      if (data.success) {
         setColor("green");
         setTimeout(() => {
-            window.location.href = "/login";
-        },2000);
+          window.location.href = "/login";
+        }, 2000);
+      }
+    }catch(e) {
+      setMsg(e + "");
     }
   }
 
@@ -52,9 +56,9 @@ export default function Register() {
         <div className="brand">
         </div>
 
-        <div style={{textAlign:"center"}}>
-            <h1>Crie sua conta</h1>
-            <p className="subtitle">Preencha os campos para começar.</p>
+        <div style={{ textAlign: "center" }}>
+          <h1>Crie sua conta</h1>
+          <p className="subtitle">Preencha os campos para começar.</p>
         </div>
 
         <div className="field">
@@ -104,7 +108,7 @@ export default function Register() {
               {showPassword ? "👁️" : "👁️"}
             </button>
           </div>
-          <p style={{color:color,textAlign:"center"}}>{msg}</p>
+          <p style={{ color: color, textAlign: "center" }}>{msg}</p>
         </div>
 
         <button className="btn-register" onClick={handleSubmit}>
