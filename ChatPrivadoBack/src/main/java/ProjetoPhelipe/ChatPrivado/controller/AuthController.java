@@ -40,8 +40,8 @@ public class AuthController {
     }
 
     @PostMapping("/password/sendEmail")
-    public void enviarEmailResetPassword(@RequestBody UserUpdatePasswordRequest request) {
-        redefinicaoSenhaService.redefinirSenha(request);
+    public ResponseEntity<UserUpdatePasswordResponse> enviarEmailResetPassword(@RequestBody UserUpdatePasswordRequest request) {
+        return redefinicaoSenhaService.redefinirSenha(request);
     }
 
     @PutMapping("/password/update/{id}")

@@ -1,7 +1,9 @@
 package ProjetoPhelipe.ChatPrivado.service;
 
 import ProjetoPhelipe.ChatPrivado.dto.UserUpdatePasswordRequest;
+import ProjetoPhelipe.ChatPrivado.dto.UserUpdatePasswordResponse;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -18,7 +20,7 @@ public class RedefinicaoSenhaService {
         this.redisTemplate = redisTemplate;
     }
 
-    public void redefinirSenha(UserUpdatePasswordRequest request) {
+    public ResponseEntity<UserUpdatePasswordResponse> redefinirSenha(UserUpdatePasswordRequest request) {
         String token = UUID.randomUUID().toString();
 
         redisTemplate.opsForValue().set(token,request.getEmail().trim().toLowerCase(), Duration.ofMinutes(10));
@@ -30,5 +32,7 @@ public class RedefinicaoSenhaService {
                 "<a href=\"" + url + "\">Clique aqui</a>";
 
         emailService.enviarEmail(request.getEmail().trim().toLowerCase(),"Redefinição de Senha",html);
+
+        return ResponseEntity.ok().body(new UserUpdatePasswordResponse(null,true));
     }
 }
